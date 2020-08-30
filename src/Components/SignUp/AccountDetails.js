@@ -3,26 +3,28 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 //import Checkbox from '@material-ui/core/Checkbox';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+// import Radio from '@material-ui/core/Radio';
+// import RadioGroup from '@material-ui/core/RadioGroup';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import FormControl from '@material-ui/core/FormControl';
+// import FormLabel from '@material-ui/core/FormLabel';
 
 export default function AddressForm(props) {
 //   const [value, setValue] = React.useState('female');
   const [BasicValues, setBasicValues] = useState({
-    "BankName":"",
-    "BranchName":"",
-    "IFSCcode":"",
-    "AccountHolderName":"",
-    "AccountNumber":"",
+    "bank_name":"",
+    "branch_name":"",
+    "ifsc_code":"",
+    "account_holder_name":"",
+    "account_number":"",
   })
 
   const handleChangeValue=(e)=>{
     let dummy = BasicValues
     dummy[e.target.name] = e.target.value
     setBasicValues(dummy) 
+    console.log(dummy)
+    props.handleSetBank(BasicValues)
   }
 
   return (
@@ -34,8 +36,8 @@ export default function AddressForm(props) {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="BankName"
-            name="BankName"
+            //id="BankName"
+            name="bank_name"
             label="Bank Name"
             fullWidth
             onChange={handleChangeValue}
@@ -45,8 +47,8 @@ export default function AddressForm(props) {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="BranchName"
-            name="BranchName"
+            //id="BranchName"
+            name="branch_name"
             label="Branch Name"
             fullWidth
             onChange={handleChangeValue}
@@ -56,8 +58,8 @@ export default function AddressForm(props) {
         <Grid item xs={12}>
           <TextField
             required
-            id="IFSCcode"
-            name="IFSCcode"
+            //id="IFSCcode"
+            name="ifsc_code"
             label="IFSC code"
             fullWidth
             onChange={handleChangeValue}
@@ -67,8 +69,8 @@ export default function AddressForm(props) {
         <Grid item xs={12}>
           <TextField
             required
-            id="AccountHolderName"
-            name="AccountHolderName"
+            //id="AccountHolderName"
+            name="account_holder_name"
             label="Account Holder Name"
             fullWidth
             onChange={handleChangeValue}
@@ -78,8 +80,8 @@ export default function AddressForm(props) {
         <Grid item xs={12}>
           <TextField
             required
-            id="AccountNumber"
-            name="AccountNumber"
+            //id="AccountNumber"
+            name="account_number"
             label="AccountNumber"
             fullWidth
             onChange={handleChangeValue}

@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 //import { NavLink } from 'react-router-dom';
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import Data from '../../json/loginData.json';
 import axios from 'axios';
 // import Dashboard from '../Dashboard/Dashboard';
@@ -87,6 +87,10 @@ export default function SignInSide() {
         // setRegister(res.data.registered)
         // setToken(res.data.token)
         localStorage.setItem("token",res.data.token)
+        if(res.data.registered)
+          {console.log(res.data.registered)
+            localStorage.setItem("registeredT",true)}
+        
         history.push(path)
       }
       else if( postObject!=={}){
@@ -207,6 +211,12 @@ export default function SignInSide() {
     }
   }
 
+
+if(localStorage.getItem("token")!=="" && localStorage.getItem("token")!==null)
+{
+  return<Redirect to="/App"></Redirect>
+}
+else{
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -283,5 +293,5 @@ export default function SignInSide() {
         </div>
       </Grid>
     </Grid>
-  );
+  )}
 }

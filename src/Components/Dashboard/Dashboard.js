@@ -24,6 +24,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { useHistory } from "react-router-dom";
 //import Link from '@material-ui/core/Link';
 // import BarImage from '../../Assets/barChart.png'
 // import dashboard from '../../Assets/dashboard.png'
@@ -203,9 +204,20 @@ export default function Dashboard(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [id, setId] = useState(0)
   const [token, setToken] = useState(localStorage.getItem("token"))
+  //console.log(localStorage.getItem("registeredT"))
+  const [registered, setRegistered] = useState(localStorage.getItem("registeredT"))
   const [userDetail, setUserDetail] = useState({})
   // const [orderId, setOrderId] = useState("")
   const [bank, setBank] = useState({})
+  const [parent, setParent] = useState({})
+  const [showPayment, setShowPayment] = useState(false)
+  const [gp, setgp] = useState(false)
+  const history = useHistory();
+
+  const handleToken=()=>{
+    let path="/"
+    history.push(path)
+  }
 
   async function handleProfileApi(){
     //let postObject = "token"+" "+token
@@ -222,8 +234,25 @@ export default function Dashboard(props) {
       setUserDetail({})
     })
   }
+
+  async function handleDonate(){
+    //let postObject = "token"+" "+token
+    await axios.get("https://fiveninitynine.herokuapp.com/clubs/getparents",{
+      headers: {
+        Authorization: 'Token ' + token
+      }
+    })
+    .then(res=>{
+      setParent(res.data)
+    })
+    .catch(err=>{
+      setParent({})
+    })
+  }
+
   useEffect(()=>{
     handleProfileApi()
+    handleDonate()
   },[])
 
 
@@ -254,20 +283,37 @@ export default function Dashboard(props) {
     setId(id)
   }
 
+  const handleShowPayment = ()=>{
+    setShowPayment(!showPayment)
+  }
+
+  const handlegp = ()=>{
+    setgp(!gp)
+  }
+
   const mainListItems = (
     <div>
       <ListItem button  onClick={()=>handleContentId(0)}>
-        <ListItemIcon>
+        <ListItemIcon>{console.log(registered)}
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
+      {registered ?  
       <ListItem button  onClick={()=>handleContentId(1)}>
-        <ListItemIcon>
-        <AssignmentIcon />
-        </ListItemIcon>
-        <ListItemText primary="Donate" />
-      </ListItem>
+      <ListItemIcon>
+      <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="Donate" />
+      </ListItem>:
+      <ListItem button disabled>
+      <ListItemIcon>
+      <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="Donate" />
+    </ListItem>
+    
+  }
       {/* <ListSubheader inset>Account Details</ListSubheader> */}
       <ListItem button  onClick={()=>handleContentId(3)}>
         <ListItemIcon>
@@ -275,19 +321,19 @@ export default function Dashboard(props) {
         </ListItemIcon>
         <ListItemText primary="Profile" />
       </ListItem>
-      <ListItem button onClick={()=>handleContentId(2)}>
+      {registered ? null: <ListItem button onClick={()=>handleContentId(2)}>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
         <ListItemText primary="Become Member" />
-      </ListItem>
+      </ListItem>}
       {/* <ListItem button>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
         <ListItemText primary="Settings" />
       </ListItem> */}
-      <ListItem button onClick={()=>setToken("")}>
+      <ListItem button onClick={()=>handleToken()}>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
@@ -371,11 +417,9 @@ export default function Dashboard(props) {
       </ListItem>
     </div>
   );
-if(token==="")
-  return <Redirect to= "/"/>
-else
+if(token!=="" && token!==null){
   return (
-    <div className={classes.root}>
+    <div className={classes.root}>{console.log(token)}
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
@@ -408,11 +452,11 @@ else
           
           <ListItemText primary="Profile" />
         </StyledMenuItem>
-        <StyledMenuItem onClick={()=>handleContentId(2)}>
+        {registered ? null: <StyledMenuItem onClick={()=>handleContentId(2)}>
           
           <ListItemText primary="Membership" />
-        </StyledMenuItem>
-        <StyledMenuItem  onClick={()=>setToken("")}>
+        </StyledMenuItem>}
+        <StyledMenuItem  onClick={()=>handleToken()}>
         
           <ListItemText primary="Sign Out" />
           
@@ -537,22 +581,72 @@ id===1?
         </Grid>
         <Grid container>
           <Grid item sm={6} className={classes.ProfileData} style={{paddingLeft:"15px"}}>
-            Aditya
+            {parent.parent!==null? parent.parent.user.name : "Not Found"}
           </Grid>
           <Grid item sm={6} className={classes.ProfileData}>
-            <Button variant="contained" color="secondary" >Pay</Button>
+            {parent.parent!==null? <Button variant="contained" color="secondary" onClick={handleShowPayment}>Pay</Button> : "Not Found"}
           </Grid>
         </Grid>
         <Grid container>
           <Grid item sm={6} className={classes.ProfileData}  style={{paddingLeft:"15px"}}>
-            Arpan
+            {parent.grandparent!==null? parent.grandparent.user.name : "Not Found"}
           </Grid>
           <Grid item sm={6} className={classes.ProfileData}>
-            <Button variant="contained" color="secondary" >Pay</Button>
+            {parent.grandparent!==null? <Button variant="contained" color="secondary" onClick={handlegp} >Pay</Button> : "Not Found"}
           </Grid>
         </Grid>
       </Paper>
 </Grid>
+{gp &&
+<Grid item sm={6}><Paper className={fixedHeightPaper}>
+            <Grid item sm={3} className={classes.ProfileHeader}>Bank : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.user.bank.bank_name}</Grid>
+            
+            <Grid item sm={3} className={classes.ProfileHeader}>Branch : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.user.bank.branch_name}</Grid>
+            
+            <Grid item sm={3} className={classes.ProfileHeader}>IFSC : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.user.bank.ifsc_code}</Grid>
+            
+            <Grid item sm={3} className={classes.ProfileHeader}>Account Holder Name : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.user.bank.account_holder_name}</Grid>
+            
+            <Grid item sm={3} className={classes.ProfileHeader}>Account Number : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.user.bank.account_number}</Grid>
+          <Grid item sm={12}>
+            <h4>Upload Reciept Image to verify Payment and Become Member</h4>
+            <input type="file" name="img" onChange={(e)=>handleFileUpload(e)}/>
+          </Grid>
+          <Grid item sm={12} style={{marginTop:"50px"}}>
+          <Button variant="contained" color="primary" >Upload</Button>
+          </Grid>
+      </Paper>
+</Grid>}
+{showPayment &&
+<Grid item sm={6}><Paper className={fixedHeightPaper}>
+            <Grid item sm={3} className={classes.ProfileHeader}>Bank : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.user.bank.bank_name}</Grid>
+            
+            <Grid item sm={3} className={classes.ProfileHeader}>Branch : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.user.bank.branch_name}</Grid>
+            
+            <Grid item sm={3} className={classes.ProfileHeader}>IFSC : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.user.bank.ifsc_code}</Grid>
+            
+            <Grid item sm={3} className={classes.ProfileHeader}>Account Holder Name : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.user.bank.account_holder_name}</Grid>
+            
+            <Grid item sm={3} className={classes.ProfileHeader}>Account Number : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.user.bank.account_number}</Grid>
+          <Grid item sm={12}>
+            <h4>Upload Reciept Image to verify Payment and Become Member</h4>
+            <input type="file" name="img" onChange={(e)=>handleFileUpload(e)}/>
+          </Grid>
+          <Grid item sm={12} style={{marginTop:"50px"}}>
+          <Button variant="contained" color="primary" >Upload</Button>
+          </Grid>
+      </Paper>
+</Grid>}
 </Grid>
 </Container>
 </main>
@@ -577,5 +671,8 @@ id===1?
 </Container>
 </main>:null}
 </div>
-  )
+  )}
+  else{
+    return <Redirect to= "/"/>
+  }
 }

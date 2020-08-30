@@ -15,10 +15,10 @@ import LandingPage from './Components/LandingPage/LandingPage';
 ReactDOM.render(
   <Router>
   <Switch>
-    <Route path="/" exact>
+    <Route path="/Login" exact>
       <Login />
     </Route>
-    <Route path="/IndiiGlobe" exact>
+    <Route path="/" exact>
       <LandingPage/>
     </Route>
     <Route path="/SignUp" exact>

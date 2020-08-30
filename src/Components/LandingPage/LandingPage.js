@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {Grid, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import dashImage from '../../Assets/toget.png'
@@ -15,12 +15,21 @@ const LandingPage=()=>{
     const [login, setLogIn] = useState(false)
     const [signup, setSignup] = useState(false)
 
+    const handleRemove=()=>{
+        localStorage.removeItem("token")
+        localStorage.removeItem("registeredT")
+    }
+
+    useEffect(()=>{
+        handleRemove()
+      },[])
+
     if(login) 
-        return <Redirect to= "/"/>
+        return <Redirect to= "/Login"/>
     else if(signup)
     return <Redirect to= "/SignUp"/>
     return(<div>
-        <Grid container style={{height:"70px",backgroundColor:"transparent",position:"fixed",top:"0px"}}>
+        <Grid container style={{height:"70px",backgroundColor:"transparent"}}>
             <Grid item sm={8} style={{padding:"25px",fontWeight:"bold"}}>
                 <Typography style={{fontWeight:"bold",fontSize:"1.4rem"}}>
                     <span style={{color:"dodgerblue"}}>Indii</span><span style={{color:"red"}}>Globe</span>
@@ -83,19 +92,16 @@ const LandingPage=()=>{
                 Site:
             </Grid>
             <Grid item sm={3}>
-                Creators:
-            </Grid>
-            <Grid item sm={3}>
                 About:
             </Grid>
             <Grid item sm={3}>
                 Help:
             </Grid>
             <Grid item sm={3}>
-                <Typography  onClick={()=>setLogIn(!login)}>Login</Typography>
+                
             </Grid>
             <Grid item sm={3}>
-                Arpan Jain
+                <Typography  onClick={()=>setLogIn(!login)} style={{cursor:"pointer"}}>Login</Typography>
             </Grid>
             <Grid item sm={3}>
                 About
@@ -104,10 +110,10 @@ const LandingPage=()=>{
                 Help
             </Grid>
             <Grid item sm={3}>
-                <Typography  onClick={()=>setLogIn(!signup)}>SignUp</Typography>
+                
             </Grid>
             <Grid item sm={3}>
-                Aditya Kumar
+                <Typography  onClick={()=>setLogIn(!signup)}  style={{cursor:"pointer"}}>SignUp</Typography>
             </Grid>
             <Grid item sm={3}>
                 
@@ -117,6 +123,9 @@ const LandingPage=()=>{
             </Grid>
             <Grid item sm={12}>
                 IndiiGlobe
+            </Grid>
+            <Grid item sm={3}>
+                
             </Grid>
         </Grid>
     </div>)

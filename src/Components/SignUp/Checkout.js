@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Basic Info', 'Personal details', 'Account Details', 'Payment'];
+const steps = ['Basic Info', 'Personal details', 'Account Details', 'Referal Info'];
 
 
 export default function Checkout() {
@@ -79,9 +79,13 @@ export default function Checkout() {
   // const [name, setName] = useState("Arpan")
   const [PersonalValues, setPersonalValues] = useState({})
   const [BasicValues, setBasicValues] = useState({})
+  const [bank, setBank] = useState({})
+  const [refer, setRefer] = useState({})
+  const [bankDetails, setBankDetails] = useState({})
+  const [referDetails, setReferDetails] = useState({})
   const [postObject, setPostObject] = useState({})
   const [status, setStatus] = useState(false)
-  const path = `/`; 
+  const path = `/Login`; 
 
   const getStepContent=(step)=> {
     switch (step) {
@@ -90,9 +94,9 @@ export default function Checkout() {
       case 1:
         return <PaymentForm handleSetPersonal={handleSetPersonal}/>;
       case 2:
-        return <AccountDetails/> ;
+        return <AccountDetails handleSetBank={handleSetBank}/> ;
       case 3:
-        return <PayORSkip />;
+        return <PayORSkip handleSetRefer={handleSetRefer}/>;
       default:
         throw new Error('Unknown step');
     }
@@ -106,6 +110,16 @@ export default function Checkout() {
   const handleSetPersonal =(text)=>{
     // console.log("aagya",text)
     setPersonalValues(text)
+  }
+
+  const handleSetBank =(text)=>{
+    console.log("aagya",text)
+    setBank(text)
+  }
+
+  const handleSetRefer =(text)=>{
+    // console.log("aagya",text)
+    setRefer(text)
   }
 
     
@@ -147,8 +161,16 @@ export default function Checkout() {
       //console.log(res.data.status)
       setStatus(res.data.status)
       if(res.data.status===true){
-        //console.log(status,"in")
-        history.push(path)
+        console.log(bank,"in")
+        console.log(BasicValues)
+        //history.push(path)
+        //setBankDetails()
+        handleBankApi()
+        // setReferDetails({
+        //   "user":BasicValues.Email,
+        //   "parent":refer.parent
+        // })
+        handleReferApi()
       }
       else{
         //TODO
@@ -156,6 +178,40 @@ export default function Checkout() {
     })
     .catch(err=>{
       setStatus("false")
+    })
+  }
+
+  async function handleBankApi(){
+    //console.log("inside",bankDetails)
+    await axios.post("https://fiveninitynine.herokuapp.com/account/bankdetails/",{
+      "bank_name":bank.bank_name,
+      "branch_name":bank.bank_name,
+      "account_number":bank.bank_name,
+      "ifsc_code":bank.bank_name,
+      "account_holder_name":bank.bank_name,
+      "email":BasicValues.Email,
+    })
+    .then(res=>{
+      //console.log(res.data.status)
+    })
+    .catch(err=>{
+      
+    })
+  }
+
+
+  async function handleReferApi(){
+    //console.log("inside")
+    await axios.post("https://fiveninitynine.herokuapp.com/clubs/makeTree/",{
+      "user":BasicValues.Email,
+      "parent":refer.parent
+    })
+    .then(res=>{
+      //console.log(res.data.status)
+      history.push(path)
+    })
+    .catch(err=>{
+      
     })
   }
 
@@ -189,24 +245,16 @@ export default function Checkout() {
                       Back
                     </Button>
                   )}
-                  {activeStep === steps.length - 1 ?<>
+                  {activeStep === steps.length - 1 ?
                     <Button
                       variant="contained"
                       color="primary"
                       onClick={handlePostObject}
                       className={classes.button}
                     >
-                      Skip & Continue
+                      Sign Up
                     </Button>
-                  <Button
-                      variant="contained"
-                      color="primary"
-                      //onClick={displayRazorpay}
-                      className={classes.button}
-                    >
-                      Payment
-                    </Button>
-                  </>:
+                  :
                   <Button
                     variant="contained"
                     color="primary"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -21,37 +21,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function PayORSkip() {
+export default function PayORSkip(props) {
   const classes = useStyles();
+
+  const [BasicValues, setBasicValues] = useState({
+    "parent":"",
+  })
+
+  const handleChangeValue=(e)=>{
+    let dummy = BasicValues
+    dummy[e.target.name] = e.target.value
+    setBasicValues(dummy) 
+    props.handleSetRefer(BasicValues)
+  }
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Payment
+        Referal Information
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <TextField 
-            required 
-            id="ReferName" 
-            label="Referal Name" 
-            fullWidth 
-            //autoComplete="cc-name" 
-            />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="ReferalCode"
-            label="Referal Code"
-            fullWidth
-            //autoComplete="cc-number"
-          />
-        </Grid>
         <Grid item xs={12}>
           <TextField
             required
-            id="ReferalId"
-            label="Referal Id"
+            //id="Referalid"
+            name="parent"
+            label="Referal Email Id or Phone Number"
+            onChange={handleChangeValue}
             fullWidth
             //autoComplete="cc-number"
           />
