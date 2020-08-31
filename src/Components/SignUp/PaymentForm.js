@@ -89,7 +89,7 @@ export default function PaymentForm(props) {
               <option value="Intermediate">Intermediate</option>
               <option value="Graduate">Graduate</option>
               <option value="Post Graduate">Post Graduate</option>
-              <option value="P.H.D.">P.H.D.</option>
+              <option value="P.hD">P.H.D.</option>
             </NativeSelect>
             {/*<FormHelperText>With visually hidden label</FormHelperText>*/}
           </FormControl>

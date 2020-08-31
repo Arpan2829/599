@@ -257,7 +257,7 @@ export default function Dashboard(props) {
 
 
   const handleFileUpload=(e)=>{
-    const files = e.target.files
+    const files = e.target.files[0]
     console.log(files)
   }
 
@@ -600,19 +600,19 @@ id===1?
 {gp &&
 <Grid item sm={6}><Paper className={fixedHeightPaper}>
             <Grid item sm={3} className={classes.ProfileHeader}>Bank : </Grid>
-            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.user.bank.bank_name}</Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.bank.bank_name}</Grid>
             
             <Grid item sm={3} className={classes.ProfileHeader}>Branch : </Grid>
-            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.user.bank.branch_name}</Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.bank.branch_name}</Grid>
             
             <Grid item sm={3} className={classes.ProfileHeader}>IFSC : </Grid>
-            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.user.bank.ifsc_code}</Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.bank.ifsc_code}</Grid>
             
             <Grid item sm={3} className={classes.ProfileHeader}>Account Holder Name : </Grid>
-            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.user.bank.account_holder_name}</Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.bank.account_holder_name}</Grid>
             
             <Grid item sm={3} className={classes.ProfileHeader}>Account Number : </Grid>
-            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.user.bank.account_number}</Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.parent.bank.account_number}</Grid>
           <Grid item sm={12}>
             <h4>Upload Reciept Image to verify Payment and Become Member</h4>
             <input type="file" name="img" onChange={(e)=>handleFileUpload(e)}/>
@@ -625,19 +625,19 @@ id===1?
 {showPayment &&
 <Grid item sm={6}><Paper className={fixedHeightPaper}>
             <Grid item sm={3} className={classes.ProfileHeader}>Bank : </Grid>
-            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.user.bank.bank_name}</Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.bank.bank_name}</Grid>
             
             <Grid item sm={3} className={classes.ProfileHeader}>Branch : </Grid>
-            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.user.bank.branch_name}</Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.bank.branch_name}</Grid>
             
             <Grid item sm={3} className={classes.ProfileHeader}>IFSC : </Grid>
-            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.user.bank.ifsc_code}</Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.bank.ifsc_code}</Grid>
             
             <Grid item sm={3} className={classes.ProfileHeader}>Account Holder Name : </Grid>
-            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.user.bank.account_holder_name}</Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.bank.account_holder_name}</Grid>
             
             <Grid item sm={3} className={classes.ProfileHeader}>Account Number : </Grid>
-            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.user.bank.account_number}</Grid>
+            <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.bank.account_number}</Grid>
           <Grid item sm={12}>
             <h4>Upload Reciept Image to verify Payment and Become Member</h4>
             <input type="file" name="img" onChange={(e)=>handleFileUpload(e)}/>

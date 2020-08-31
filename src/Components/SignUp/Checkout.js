@@ -185,10 +185,10 @@ export default function Checkout() {
     //console.log("inside",bankDetails)
     await axios.post("https://fiveninitynine.herokuapp.com/account/bankdetails/",{
       "bank_name":bank.bank_name,
-      "branch_name":bank.bank_name,
-      "account_number":bank.bank_name,
-      "ifsc_code":bank.bank_name,
-      "account_holder_name":bank.bank_name,
+      "branch_name":bank.branch_name,
+      "account_number":bank.account_number,
+      "ifsc_code":bank.ifsc_code,
+      "account_holder_name":bank.account_holder_name,
       "email":BasicValues.Email,
     })
     .then(res=>{
