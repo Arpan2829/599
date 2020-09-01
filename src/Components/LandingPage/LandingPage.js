@@ -165,20 +165,35 @@ const LandingPage=()=>{
             </Grid>
         </Grid>
         {change===0 ?
-        <Grid container spacing={6} style={{padding:"250px 25px",textAlign:"center",backgroundImage:`url(${dashImage2})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
-            <Grid item sm={1}><ArrowBackIosIcon style={{color:"blue"}} onClick={ChangePhoto}/></Grid>
-            <Grid item sm={10}></Grid>
-            <Grid item sm={1}><ArrowForwardIosIcon style={{color:"blue"}} onClick={ChangePhoto}/></Grid>
+        <Grid container style={{margin:"100px 25px"}}>
+            <Grid item sm={1} style={{paddingTop:"140px"}}><ArrowBackIosIcon style={{color:"black"}} onClick={ChangePhoto}/></Grid>
+            <Grid item sm={2}></Grid>
+            <Grid item sm={6} style={{height:"300px",textAlign:"center",backgroundImage:`url(${dashImage2})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}></Grid>
+            <Grid item sm={2}></Grid>
+            <Grid item sm={1} style={{textAlign:"center",paddingTop:"140px"}}><ArrowForwardIosIcon style={{color:"black"}} onClick={ChangePhoto}/></Grid>
+            <Grid item sm={3}></Grid>
+            <Grid item sm={6} style={{backgroundColor:"black",color:"#fff",textAlign:"center"}}>We Give</Grid>
+            <Grid item sm={3}></Grid>
         </Grid>: change===1?
-        <Grid container spacing={6} style={{padding:"250px 25px",textAlign:"center",backgroundImage:`url(${second})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
-            <Grid item sm={1}><ArrowBackIosIcon style={{color:"blue"}} onClick={ChangePhoto}/></Grid>
-            <Grid item sm={10}></Grid>
-            <Grid item sm={1}><ArrowForwardIosIcon style={{color:"blue"}} onClick={ChangePhoto}/></Grid>
+        <Grid container  style={{margin:"100px 25px"}}>
+            <Grid item sm={1} style={{paddingTop:"140px"}}><ArrowBackIosIcon style={{color:"black"}} onClick={ChangePhoto}/></Grid>
+            <Grid item sm={2}></Grid>
+            <Grid item sm={6}  style={{height:"300px",textAlign:"center",backgroundImage:`url(${second})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}></Grid>
+            <Grid item sm={2}></Grid>
+            <Grid item sm={1} style={{textAlign:"center",paddingTop:"140px"}}><ArrowForwardIosIcon style={{color:"black"}} onClick={ChangePhoto}/></Grid>
+            <Grid item sm={3}></Grid>
+            <Grid item sm={6} style={{backgroundColor:"black",color:"#fff",textAlign:"center"}}>We Share</Grid>
+            <Grid item sm={3}></Grid>
         </Grid>:
-        <Grid container spacing={6} style={{padding:"250px 25px",textAlign:"center",backgroundImage:`url(${third})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
-            <Grid item sm={1}><ArrowBackIosIcon style={{color:"blue"}} onClick={ChangePhoto}/></Grid>
-            <Grid item sm={10}></Grid>
-            <Grid item sm={1}><ArrowForwardIosIcon style={{color:"blue"}} onClick={ChangePhoto}/></Grid>
+        <Grid container style={{margin:"100px 25px"}}>
+            <Grid item sm={1} style={{paddingTop:"140px"}}><ArrowBackIosIcon style={{color:"black"}} onClick={ChangePhoto}/></Grid>
+            <Grid item sm={2}></Grid>
+            <Grid item sm={6}  style={{height:"300px",textAlign:"center",backgroundImage:`url(${third})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}></Grid>
+            <Grid item sm={2}></Grid>
+            <Grid item sm={1} style={{textAlign:"center",paddingTop:"140px"}}><ArrowForwardIosIcon style={{color:"black"}} onClick={ChangePhoto}/></Grid>
+            <Grid item sm={3}></Grid>
+            <Grid item sm={6} style={{backgroundColor:"black",color:"#fff",textAlign:"center"}}>We Recieve</Grid>
+            <Grid item sm={3}></Grid>
         </Grid>}
         <Grid container spacing={6} style={{padding:"180px 25px",textAlign:"center",backgroundImage:`url(${coins})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
             <Grid item sm={3}><Chip label="Donation Level 1000" style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
