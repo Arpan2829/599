@@ -1,9 +1,16 @@
 import React,{useState,useEffect} from 'react';
-import {Grid, Typography} from '@material-ui/core';
+import {Grid, Typography, Chip} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import dashImage from '../../Assets/toget.png'
+import dashImage from '../../Assets/toget.jpg'
 import dashImagefirst from '../../Assets/demol.png'
+import dashImage2 from '../../Assets/dashImage2.jpg'
 import { Redirect } from 'react-router-dom';
+import coins from '../../Assets/coins.jpg';
+import first from '../../Assets/first.jpg';
+import second from '../../Assets/second.jpg';
+import third from '../../Assets/third.jpg';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,7 +21,57 @@ const LandingPage=()=>{
     const classes = useStyles();
     const [login, setLogIn] = useState(false)
     const [signup, setSignup] = useState(false)
+    const [id, setId] = useState(0)
+    const ChangePhotoId=()=>{
+        if(id===0){
+            setId(1)
+        }
+        else{
+            setId(0)
+        }
+    }
 
+    useEffect(() => {
+            const id = setInterval(ChangePhotoId, 5000);
+            return () => clearInterval(id);
+        },[id]);
+    
+    
+    
+    const [change, setChange] = useState(0)
+
+    const ChangePhoto=()=>{
+        if(change===0){
+            setChange(1)
+        }
+        else if(change===1){
+            setChange(2)
+        }
+        else{
+            setChange(0)
+        }
+    }
+
+    const ChangePreviousPhoto=()=>{
+        if(change===0){
+            setChange(2)
+        }
+        else if(change===1){
+            setChange(0)
+        }
+        else{
+            setChange(1)
+        }
+    }
+
+    useEffect(() => {
+            const id = setInterval(ChangePhoto, 5000);
+            return () => clearInterval(id);
+        },[id]);
+    
+
+    
+    
     const handleRemove=()=>{
         localStorage.removeItem("token")
         localStorage.removeItem("registeredT")
@@ -48,7 +105,8 @@ const LandingPage=()=>{
                 <Typography style={{fontWeight:"bold",cursor:"pointer"}} onClick={()=>setLogIn(!login)}>Login</Typography>
             </Grid>
         </Grid>
-        <Grid container style={{padding:"180px 25px",backgroundImage:`url(${dashImagefirst})`,backgroundRepeat: "no-repeat"}}>
+        {id===0?
+        <Grid container style={{padding:"180px 25px",backgroundImage:`url(${dashImagefirst})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
             <Grid item sm={12}>
                 <Typography style={{fontSize:"1.4rem",color:"dodgerblue"}}>
                     Indii Globe Support Funding.				
@@ -66,8 +124,27 @@ const LandingPage=()=>{
                     Start Raising Happiness Today				
                 </Typography>
             </Grid>
+        </Grid>:
+        <Grid container style={{padding:"180px 25px",backgroundImage:`url(${dashImage2})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
+        <Grid item sm={12}>
+            <Typography style={{fontSize:"1.4rem",color:"dodgerblue"}}>
+                Indii Globe Support Funding.				
+            </Typography>
+            <Typography style={{fontWeight:"bold",fontSize:"1.4rem",color:"red"}}>
+                Happiness At Your Doorstep				
+            </Typography>
+            <Typography style={{fontWeight:"bold",fontSize:"1.4rem",color:"dodgerblue"}}>
+                *At our platform, you get certain and maximum earn. 
+            </Typography>
+            <Typography style={{fontWeight:"bold",fontSize:"1.4rem",color:"dodgerblue"}}>
+                *Our “Support Funding System” is built in a way, to become most rewarding ever.				
+            </Typography>
+            <Typography style={{fontWeight:"bold",fontSize:"1.4rem",color:"dodgerblue"}}>
+                Start Raising Happiness Today				
+            </Typography>
         </Grid>
-        <Grid container style={{padding:"180px 25px",textAlign:"center",backgroundImage:`url(${dashImage})`,backgroundRepeat: "no-repeat"}}>
+    </Grid>}
+        <Grid container style={{padding:"180px 25px",textAlign:"center",backgroundImage:`url(${dashImage})`,backgroundRepeat: "no-repeat",backgroundAttachment: "fixed",backgroundPosition: "center center",backgroundSize: "cover"}}>
             <Grid item sm={6}></Grid>
             <Grid item sm={6}>
                 <Typography style={{fontSize:"1.4rem",color:"red"}}>
@@ -86,6 +163,29 @@ const LandingPage=()=>{
                     *And only 5 % of your earning will support to orphan house associated with us.
                 </Typography>
             </Grid>
+        </Grid>
+        {change===0 ?
+        <Grid container spacing={6} style={{padding:"250px 25px",textAlign:"center",backgroundImage:`url(${dashImage2})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
+            <Grid item sm={1}><ArrowBackIosIcon style={{color:"blue"}} onClick={ChangePhoto}/></Grid>
+            <Grid item sm={10}></Grid>
+            <Grid item sm={1}><ArrowForwardIosIcon style={{color:"blue"}} onClick={ChangePhoto}/></Grid>
+        </Grid>: change===1?
+        <Grid container spacing={6} style={{padding:"250px 25px",textAlign:"center",backgroundImage:`url(${second})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
+            <Grid item sm={1}><ArrowBackIosIcon style={{color:"blue"}} onClick={ChangePhoto}/></Grid>
+            <Grid item sm={10}></Grid>
+            <Grid item sm={1}><ArrowForwardIosIcon style={{color:"blue"}} onClick={ChangePhoto}/></Grid>
+        </Grid>:
+        <Grid container spacing={6} style={{padding:"250px 25px",textAlign:"center",backgroundImage:`url(${third})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
+            <Grid item sm={1}><ArrowBackIosIcon style={{color:"blue"}} onClick={ChangePhoto}/></Grid>
+            <Grid item sm={10}></Grid>
+            <Grid item sm={1}><ArrowForwardIosIcon style={{color:"blue"}} onClick={ChangePhoto}/></Grid>
+        </Grid>}
+        <Grid container spacing={6} style={{padding:"180px 25px",textAlign:"center",backgroundImage:`url(${coins})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
+            <Grid item sm={3}><Chip label="Donation Level 1000" style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
+            <Grid item sm={3}><Chip label="Donation Level 2000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
+            <Grid item sm={3}><Chip label="Donation Level 5000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
+            <Grid item sm={3}><Chip label="Donation Level 10000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
+            <Grid item sm={3}><Chip label="Donation Level 20000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
         </Grid>
         <Grid container style={{padding:"30px 25px",backgroundColor:"black",color:"white",textAlign:"center"}}>
             <Grid item sm={3}>
