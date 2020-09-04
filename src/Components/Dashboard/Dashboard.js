@@ -276,7 +276,7 @@ export default function Dashboard(props) {
     })
     .then(res=>{
       console.log(res.data)
-      alert(res.data)
+      //alert(res.data)
     })
     .catch(err=>{
       //TODO
@@ -293,7 +293,7 @@ export default function Dashboard(props) {
     })
     .then(res=>{
       console.log(res.data)
-      alert(res.data)
+      // alert(res.data)
     })
     .catch(err=>{
       //TODO
@@ -310,7 +310,7 @@ export default function Dashboard(props) {
     })
     .then(res=>{
       console.log(res.data)
-      alert(res.data)
+      // alert(res.data)
     })
     .catch(err=>{
       //TODO
