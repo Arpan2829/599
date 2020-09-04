@@ -197,10 +197,10 @@ const LandingPage=()=>{
         </Grid>}
         <Grid container spacing={6} style={{padding:"180px 25px",textAlign:"center",backgroundImage:`url(${coins})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
             <Grid item sm={3}><Chip label="Donation Level 1000" style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
-            <Grid item sm={3}><Chip label="Donation Level 2000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
+            <Grid item sm={3}><Chip label="Donation Level 3000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
             <Grid item sm={3}><Chip label="Donation Level 5000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
             <Grid item sm={3}><Chip label="Donation Level 10000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
-            <Grid item sm={3}><Chip label="Donation Level 20000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
+            <Grid item sm={3}><Chip label="Donation Level 15000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
         </Grid>
         <Grid container style={{padding:"30px 25px",backgroundColor:"black",color:"white",textAlign:"center"}}>
             <Grid item sm={3}>

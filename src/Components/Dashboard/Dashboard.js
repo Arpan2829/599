@@ -213,6 +213,7 @@ export default function Dashboard(props) {
   const [showPayment, setShowPayment] = useState(false)
   const [gp, setgp] = useState(false)
   const history = useHistory();
+  const [fileUpload, setFileUpload]=useState()
 
   const handleToken=()=>{
     let path="/"
@@ -258,7 +259,62 @@ export default function Dashboard(props) {
 
   const handleFileUpload=(e)=>{
     const files = e.target.files[0]
-    console.log(files)
+    
+    
+    setFileUpload(e.target.files[0])
+    console.log(fileUpload)
+  }
+
+  async function handleFileUploadApi(){
+    console.log("file",fileUpload,token)
+    const formaData=new FormData()
+    formaData.append("screenshot",fileUpload)
+    await axios.post("https://fiveninitynine.herokuapp.com/account/submitpaymentss/",formaData,{
+      headers: {
+        Authorization: 'Token ' + token
+      }
+    })
+    .then(res=>{
+      console.log(res.data)
+      alert(res.data)
+    })
+    .catch(err=>{
+      //TODO
+    })
+  }
+  async function handleFileUploadGrandApi(){
+    console.log("file",fileUpload,token)
+    const formaData=new FormData()
+    formaData.append("screenshot",fileUpload)
+    await axios.post("https://fiveninitynine.herokuapp.com/clubs/uploadgrandparentss/",formaData,{
+      headers: {
+        Authorization: 'Token ' + token
+      }
+    })
+    .then(res=>{
+      console.log(res.data)
+      alert(res.data)
+    })
+    .catch(err=>{
+      //TODO
+    })
+  }
+  async function handleFileUploadParentApi(){
+    console.log("file",fileUpload,token)
+    const formaData=new FormData()
+    formaData.append("screenshot",fileUpload)
+    await axios.post("https://fiveninitynine.herokuapp.com/clubs/uploadparentss/",formaData,{
+      headers: {
+        Authorization: 'Token ' + token
+      }
+    })
+    .then(res=>{
+      console.log(res.data)
+      alert(res.data)
+    })
+    .catch(err=>{
+      //TODO
+    })
   }
 
   const handleClick = (event) => {
@@ -613,12 +669,15 @@ id===1?
             
             <Grid item sm={3} className={classes.ProfileHeader}>Account Number : </Grid>
             <Grid item sm={9} className={classes.ProfileData}>{parent.parent.bank.account_number}</Grid>
+
+            <Grid item sm={3} className={classes.ProfileHeader}>Amount : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>1500</Grid>
           <Grid item sm={12}>
             <h4>Upload Reciept Image to verify Payment and Become Member</h4>
             <input type="file" name="img" onChange={(e)=>handleFileUpload(e)}/>
           </Grid>
           <Grid item sm={12} style={{marginTop:"50px"}}>
-          <Button variant="contained" color="primary" >Upload</Button>
+          <Button variant="contained" color="primary" onClick={handleFileUploadGrandApi} >Upload</Button>
           </Grid>
       </Paper>
 </Grid>}
@@ -638,12 +697,15 @@ id===1?
             
             <Grid item sm={3} className={classes.ProfileHeader}>Account Number : </Grid>
             <Grid item sm={9} className={classes.ProfileData}>{parent.grandparent.bank.account_number}</Grid>
+
+            <Grid item sm={3} className={classes.ProfileHeader}>Amount : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>1500</Grid>
           <Grid item sm={12}>
             <h4>Upload Reciept Image to verify Payment and Become Member</h4>
             <input type="file" name="img" onChange={(e)=>handleFileUpload(e)}/>
           </Grid>
           <Grid item sm={12} style={{marginTop:"50px"}}>
-          <Button variant="contained" color="primary" >Upload</Button>
+          <Button variant="contained" color="primary" onClick={handleFileUploadParentApi}>Upload</Button>
           </Grid>
       </Paper>
 </Grid>}
@@ -657,13 +719,30 @@ id===1?
   <Grid container spacing={3}>
     <Grid item xs={6}></Grid>
     <Grid item xs={6}>
-      <Paper className={fixedHeightPaper}>
+      <Paper style={{padding:"5px"}}>
+            <Grid item sm={3} className={classes.ProfileHeader}>Bank : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>Federal Bank</Grid>
+            
+            <Grid item sm={3} className={classes.ProfileHeader}>Branch : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>Ranchi</Grid>
+            
+            <Grid item sm={3} className={classes.ProfileHeader}>IFSC : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>FDRL0002299</Grid>
+            
+            <Grid item sm={3} className={classes.ProfileHeader}>Account Holder Name : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>Sumit</Grid>
+            
+            <Grid item sm={3} className={classes.ProfileHeader}>Account Number : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>22990200000012</Grid>
+
+            <Grid item sm={3} className={classes.ProfileHeader}>Amount : </Grid>
+            <Grid item sm={9} className={classes.ProfileData}>599</Grid>
           <Grid item sm={12}>
             <h4>Upload Reciept Image to verify Payment and Become Member</h4>
             <input type="file" name="img" onChange={(e)=>handleFileUpload(e)}/>
           </Grid>
           <Grid item sm={12} style={{marginTop:"50px"}}>
-          <Button variant="contained" color="primary" >Upload</Button>
+          <Button variant="contained" color="primary" onClick={handleFileUploadApi}>Upload</Button>
           </Grid>
       </Paper>
 </Grid>

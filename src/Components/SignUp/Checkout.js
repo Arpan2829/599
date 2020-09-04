@@ -142,7 +142,7 @@ export default function Checkout() {
       "password":BasicValues.Password,
       "father_name":PersonalValues.FatherName,
       "mother_name":PersonalValues.MotherName,
-      "qualification":PersonalValues.Qualification.toLowerCase(),
+      "qualification":PersonalValues.Qualification,
       "occupation":PersonalValues.Occupation.toLowerCase(),
       "pan":PersonalValues.PanNumber,
       "aadhar":PersonalValues.AadharNumber,

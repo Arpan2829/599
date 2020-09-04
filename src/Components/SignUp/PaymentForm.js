@@ -84,11 +84,11 @@ export default function PaymentForm(props) {
               inputProps={{ 'aria-label': 'Qualification' }}
             >
               <option value="" disabled>Select Qualification</option>
-              <option value="No Qualification">No Qualification</option>
-              <option value="Matriculation">Matriculation</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="Graduate">Graduate</option>
-              <option value="Post Graduate">Post Graduate</option>
+              <option value="no qualification">No Qualification</option>
+              <option value="matriculation">Matriculation</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="graduate">Graduate</option>
+              <option value="post graduate">Post Graduate</option>
               <option value="P.hD">P.H.D.</option>
             </NativeSelect>
             {/*<FormHelperText>With visually hidden label</FormHelperText>*/}
