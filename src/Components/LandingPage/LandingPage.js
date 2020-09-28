@@ -90,6 +90,7 @@ const LandingPage=()=>{
             <Grid item sm={8} style={{padding:"25px",fontWeight:"bold"}}>
                 <Typography style={{fontWeight:"bold",fontSize:"1.4rem"}}>
                     <span style={{color:"dodgerblue"}}>Indii</span><span style={{color:"red"}}>Globe</span>
+                    <Typography style={{fontStyle:"italic",fontSize:"0.7rem"}}>A welfare unit of CS Consultancy</Typography>
                 </Typography>
             </Grid>
             <Grid item sm={1} style={{padding:"25px 10px",textAlign:"right",color:"red"}}>
@@ -195,12 +196,12 @@ const LandingPage=()=>{
             <Grid item sm={6} style={{backgroundColor:"black",color:"#fff",textAlign:"center"}}>We Recieve</Grid>
             <Grid item sm={3}></Grid>
         </Grid>}
-        <Grid container spacing={6} style={{padding:"180px 25px",textAlign:"center",backgroundImage:`url(${coins})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
+        <Grid container style={{padding:"180px 25px",textAlign:"center",backgroundImage:`url(${coins})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}>
             <Grid item sm={3}><Chip label="Donation Level 1000" style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
             <Grid item sm={3}><Chip label="Donation Level 3000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
             <Grid item sm={3}><Chip label="Donation Level 5000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
             <Grid item sm={3}><Chip label="Donation Level 10000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
-            <Grid item sm={3}><Chip label="Donation Level 15000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
+            <Grid item sm={3} style={{marginTop:"20px"}}><Chip label="Donation Level 15000"  style={{padding:"20px", backgroundColor:"blue", color:"#fff"}}/></Grid>
         </Grid>
         <Grid container style={{padding:"30px 25px",backgroundColor:"black",color:"white",textAlign:"center"}}>
             <Grid item sm={3}>
