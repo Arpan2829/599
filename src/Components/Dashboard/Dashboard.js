@@ -490,6 +490,7 @@ if(token!=="" && token!==null){
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             <span style={{color:"dodgerblue"}}>Indii</span><span style={{color:"red"}}>Globe</span>
+            <Typography style={{fontStyle:"italic"}}>A welfare unit of CS Consultancy</Typography>
           </Typography>
           <IconButton color="inherit" onClick={handleClick}>
             <Chip
@@ -730,7 +731,7 @@ id===1?
             <Grid item sm={9} className={classes.ProfileData}>FDRL0002299</Grid>
             
             <Grid item sm={3} className={classes.ProfileHeader}>Account Holder Name : </Grid>
-            <Grid item sm={9} className={classes.ProfileData}>Sumit</Grid>
+            <Grid item sm={9} className={classes.ProfileData}>CS Consultancy(IndiiGlobe)</Grid>
             
             <Grid item sm={3} className={classes.ProfileHeader}>Account Number : </Grid>
             <Grid item sm={9} className={classes.ProfileData}>22990200000012</Grid>
