@@ -166,8 +166,8 @@ const LandingPage=()=>{
             </Grid>
         </Grid>
         {change===0 ?
-        <Grid container style={{margin:"100px 25px"}}>
-            <Grid item sm={1} style={{paddingTop:"140px"}}><ArrowBackIosIcon style={{color:"black"}} onClick={ChangePhoto}/></Grid>
+        <Grid container style={{margin:"100px 0px"}}>
+            <Grid item sm={1} style={{paddingTop:"140px"}}><ArrowBackIosIcon style={{color:"black",marginLeft:"35px"}} onClick={ChangePhoto}/></Grid>
             <Grid item sm={2}></Grid>
             <Grid item sm={6} style={{height:"300px",textAlign:"center",backgroundImage:`url(${dashImage2})`,backgroundRepeat: "no-repeat",backgroundPosition: "center center",backgroundSize: "cover"}}></Grid>
             <Grid item sm={2}></Grid>
