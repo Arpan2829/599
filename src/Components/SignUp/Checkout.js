@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
+import {Button,Grid} from '@material-ui/core';
 //import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
@@ -81,10 +81,11 @@ export default function Checkout() {
   const [BasicValues, setBasicValues] = useState({})
   const [bank, setBank] = useState({})
   const [refer, setRefer] = useState({})
-  const [bankDetails, setBankDetails] = useState({})
-  const [referDetails, setReferDetails] = useState({})
+  // const [bankDetails, setBankDetails] = useState({})
+  // const [referDetails, setReferDetails] = useState({})
   const [postObject, setPostObject] = useState({})
   const [status, setStatus] = useState(false)
+  const [mandotryMsg, setMandotryMsg] = useState(false)
   const path = `/Login`; 
 
   const getStepContent=(step)=> {
@@ -124,7 +125,65 @@ export default function Checkout() {
 
     
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    //setActiveStep(activeStep + 1);
+    setMandotryMsg(false)
+    let check=true
+    if(activeStep===0){
+      for(let key of Object.keys(BasicValues)){
+        if(BasicValues[key]===""){
+          check=false
+          setMandotryMsg(true)
+        }
+      }
+      if(check===true && Object.keys(BasicValues).length !== 0){
+        setActiveStep(activeStep + 1);
+      }
+      else{
+        setMandotryMsg(true)
+      }
+    }
+    else if(activeStep===1){
+      for(let key of Object.keys(PersonalValues)){
+        if(PersonalValues[key]===""){
+          check=false
+          setMandotryMsg(true)
+        }
+      }
+      if(check===true && Object.keys(PersonalValues).length !== 0){
+        setActiveStep(activeStep + 1);
+      }
+      else{
+        setMandotryMsg(true)
+      }
+    }
+    else if(activeStep===2){
+      for(let key of Object.keys(bank)){
+        if(bank[key]===""){
+          check=false
+          setMandotryMsg(true)
+        }
+      }
+      if(check===true && Object.keys(bank).length !== 0){
+        setActiveStep(activeStep + 1);
+      }
+      else{
+        setMandotryMsg(true)
+      }
+    }
+    else{
+      for(let key of Object.keys(refer)){
+        if(refer[key]===""){
+          check=false
+          setMandotryMsg(true)
+        }
+      }
+      if(check===true && Object.keys(refer).length !== 0){
+        setActiveStep(activeStep + 1);
+      }
+      else{
+        setMandotryMsg(true)
+      }
+    }
   };
 
   const handleBack = () => {
@@ -230,6 +289,8 @@ export default function Checkout() {
           <Typography component="h1" variant="h4" align="center">
             Sign Up
           </Typography>
+          <Grid container>
+            <Grid item xs={12} style={{wordBreak:"break-all"}}>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
               <Step key={label}>
@@ -237,9 +298,12 @@ export default function Checkout() {
               </Step>
             ))}
           </Stepper>
+          </Grid>
+          </Grid>
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
+                  {mandotryMsg && <Typography className={classes.button} style={{color:"red"}}>Please fill all the fields before proceeding</Typography>}
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
                       Back
