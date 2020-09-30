@@ -14,6 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 // import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
+import Modal from '@material-ui/core/Modal';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
 //import { mainListItems, secondaryListItems, ThirdListItems } from './listItems';
@@ -90,11 +91,34 @@ function Copyright() {
   );
 }
 
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+  },
+  paperModal: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: "#fff",
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -214,6 +238,8 @@ export default function Dashboard(props) {
   const [gp, setgp] = useState(false)
   const history = useHistory();
   const [fileUpload, setFileUpload]=useState()
+  const [openModal, setOpenModal]=useState(false)
+  const [modalStyle] = React.useState(getModalStyle);
 
   const handleToken=()=>{
     let path="/"
@@ -266,6 +292,7 @@ export default function Dashboard(props) {
   }
 
   async function handleFileUploadApi(){
+    let modal=false
     console.log("file",fileUpload,token)
     const formaData=new FormData()
     formaData.append("screenshot",fileUpload)
@@ -276,13 +303,15 @@ export default function Dashboard(props) {
     })
     .then(res=>{
       console.log(res.data)
-      //alert(res.data)
+      modal = res.data.status
     })
     .catch(err=>{
       //TODO
     })
+    setOpenModal(modal)
   }
   async function handleFileUploadGrandApi(){
+    let modal=false;
     console.log("file",fileUpload,token)
     const formaData=new FormData()
     formaData.append("screenshot",fileUpload)
@@ -294,12 +323,15 @@ export default function Dashboard(props) {
     .then(res=>{
       console.log(res.data)
       // alert(res.data)
+      modal = res.data.status
     })
     .catch(err=>{
       //TODO
     })
+    setOpenModal(modal)
   }
   async function handleFileUploadParentApi(){
+    let modal = false;
     console.log("file",fileUpload,token)
     const formaData=new FormData()
     formaData.append("screenshot",fileUpload)
@@ -309,12 +341,18 @@ export default function Dashboard(props) {
       }
     })
     .then(res=>{
-      console.log(res.data)
-      // alert(res.data)
+      console.log("res.data",res.data)
+      modal = res.data.status
     })
     .catch(err=>{
       //TODO
     })
+    setOpenModal(modal)
+  }
+
+  const handleCloseModal=()=>{
+    setOpenModal(false)
+    handleContentId(0)
   }
 
   const handleClick = (event) => {
@@ -346,6 +384,15 @@ export default function Dashboard(props) {
   const handlegp = ()=>{
     setgp(!gp)
   }
+
+  const body = (
+    <div style={modalStyle} className={classes.paperModal}>
+      <h2 id="simple-modal-title">Success</h2>
+      <p id="simple-modal-description">
+        File Uploaded successfully
+      </p>
+    </div>
+  );
 
   const mainListItems = (
     <div>
@@ -641,7 +688,7 @@ id===1?
             {parent.parent!==null? parent.parent.user.name : "Not Found"}
           </Grid>
           <Grid item sm={6} className={classes.ProfileData}>
-            {parent.parent!==null? <Button variant="contained" color="secondary" onClick={handleShowPayment}>Pay</Button> : "Not Found"}
+            {parent.parent!==null? <Button variant="contained" color="secondary" onClick={handlegp}>Pay</Button> : "Not Found"}
           </Grid>
         </Grid>
         <Grid container>
@@ -649,7 +696,7 @@ id===1?
             {parent.grandparent!==null? parent.grandparent.user.name : "Not Found"}
           </Grid>
           <Grid item sm={6} className={classes.ProfileData}>
-            {parent.grandparent!==null? <Button variant="contained" color="secondary" onClick={handlegp} >Pay</Button> : "Not Found"}
+            {parent.grandparent!==null? <Button variant="contained" color="secondary" onClick={handleShowPayment} >Pay</Button> : "Not Found"}
           </Grid>
         </Grid>
       </Paper>
@@ -712,6 +759,14 @@ id===1?
 </Grid>}
 </Grid>
 </Container>
+<Modal
+            open={openModal}
+            onClose={handleCloseModal}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            {body}
+          </Modal>
 </main>
 :id===2?
 <main className={classes.content} style={{backgroundImage:`url(${profileImg})`,backgroundRepeat: "no-repeat"}}>
@@ -749,6 +804,14 @@ id===1?
 </Grid>
 </Grid>
 </Container>
+<Modal
+            open={openModal}
+            onClose={handleCloseModal}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            {body}
+          </Modal>
 </main>:null}
 </div>
   )}
